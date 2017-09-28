@@ -21,6 +21,7 @@
     android:background="@color/light_white"
     android:clickable="true"
     android:orientation="vertical"
+    android:layout_marginLeft="50sp"
     android:visibility="gone">
 
     <LinearLayout
@@ -105,6 +106,7 @@
             android:textColor="@color/common_h2"
             android:textSize="14dp" />
     </LinearLayout>
+
 
     <GridView
         android:id="@+id/gvTheme"

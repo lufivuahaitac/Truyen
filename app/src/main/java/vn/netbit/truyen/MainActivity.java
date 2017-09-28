@@ -4,13 +4,17 @@ package vn.netbit.truyen;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rlReadAaSet)
     LinearLayout rlReadAaSet;
+    @BindView(R.id.main_content)
+    LinearLayout main_content;
     @BindView(R.id.seekbarFontSize)
     SeekBar seekbarFontSize;
 
@@ -42,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     EbookTextView tv;
     @BindView(R.id.chapContent2)
     EbookTextView tv2;
-    private Button bt;
+
     LinearLayout settings;
 
     @Override
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        hideSystemUI();
+        //main_content.getHeight();
         seekbarFontSize.setProgress(30);
         seekbarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -166,25 +174,35 @@ public class MainActivity extends AppCompatActivity {
         return ret;
     }
     public void changer(){
+
 //        float curSize = tv.getTextSize()  + 1;
 //        tv.setTextSize(pixelsToSp(this, curSize));
        // gone(rlReadAaSet);
 //        settings.setVisibility(View.VISIBLE);
         if(Utils.isVisible(llBookReadBottom)){
             gone(llBookReadBottom);
+            hideSystemUI();
         } else {
             visible(llBookReadBottom);
+            showSystemUI();
         }
     }
 
 
     @OnClick(R.id.tvBookReadSettings)
     protected void readSettings(){
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)  rlReadAaSet.getLayoutParams();
+        params.setMargins(0,llBookReadBottom.getHeight(),0,0);
+        rlReadAaSet.setLayoutParams(params);
         if(Utils.isVisible(rlReadAaSet)){
             gone(rlReadAaSet);
         } else {
             visible(rlReadAaSet);
         }
+    }
+
+    @OnClick(R.id.tvBookMark)
+    protected void showBar(){
     }
 
     public static float pixelsToSp(Context context, float px) {
@@ -210,5 +228,77 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void setFullscreen(boolean fullscreen)
+    {
+        if(fullscreen){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        } else{
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_LAYOUT_FLAGS);
+        }
+
+//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+//
+//        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+//        if (fullscreen)
+//        {
+//            attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//            attrs.flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+//        }
+//        else
+//        {
+//            attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//            attrs.flags &= ~WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+//        }
+//        getWindow().setAttributes(attrs);
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    protected void enableImmersiveMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
+        }
+    }
+
+    // This snippet hides the system bars.
+    private void hideSystemUI() {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    // This snippet shows the system bars. It does this by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }

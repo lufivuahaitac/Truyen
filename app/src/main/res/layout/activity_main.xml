@@ -6,34 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vn.netbit.truyen.MainActivity">
-
-    <ScrollView
-        android:id="@+id/contentScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarSize="0pt"
-        android:scrollbarStyle="outsideInset"
-        android:keepScreenOn="true"
-        >
-
-        <LinearLayout
+        android:id="@+id/main_content">
+        <ScrollView
+            android:id="@+id/contentScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:scrollbarSize="0pt"
+            android:scrollbarStyle="outsideInset"
+            android:keepScreenOn="true"
+            >
 
-            <vn.netbit.utils.EbookTextView
-                android:id="@+id/chapContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <vn.netbit.utils.EbookTextView
-                android:id="@+id/chapContent2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="15px" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-    </ScrollView>
+                <vn.netbit.utils.EbookTextView
+                    android:id="@+id/chapContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <vn.netbit.utils.EbookTextView
+                    android:id="@+id/chapContent2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15px" />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
 
     <include layout="@layout/activity_read_settings" />
 
@@ -108,4 +112,4 @@
     </LinearLayout>
 
 
-</FrameLayout>
+</FrameLayout >
