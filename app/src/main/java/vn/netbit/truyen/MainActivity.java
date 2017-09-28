@@ -2,19 +2,15 @@ package vn.netbit.truyen;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -23,10 +19,7 @@ import android.widget.SeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.OnTouch;
 import vn.netbit.utils.EbookTextView;
-import vn.netbit.utils.JustifyTextView;
 import vn.netbit.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
         hideSystemUI();
         //main_content.getHeight();
         seekbarFontSize.setProgress(30);
@@ -175,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void changer(){
 
+        Intent myIntent = new Intent(MainActivity.this, Read.class);
+        myIntent.putExtra("key", "Test"); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
+
 //        float curSize = tv.getTextSize()  + 1;
 //        tv.setTextSize(pixelsToSp(this, curSize));
        // gone(rlReadAaSet);
@@ -191,9 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.tvBookReadSettings)
     protected void readSettings(){
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)  rlReadAaSet.getLayoutParams();
-        params.setMargins(0,llBookReadBottom.getHeight(),0,0);
-        rlReadAaSet.setLayoutParams(params);
+
         if(Utils.isVisible(rlReadAaSet)){
             gone(rlReadAaSet);
         } else {
@@ -301,4 +298,6 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
+
+
 }

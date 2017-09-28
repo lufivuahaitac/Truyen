@@ -24,15 +24,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
 
 import butterknife.ButterKnife;
-import vn.netbit.truyen.R;
+import butterknife.Unbinder;
+import vn.netbit.utils.SharedPreferencesUtil;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
 
     public Toolbar mCommonToolbar;
 
@@ -40,33 +41,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int statusBarColor = 0;
     protected View statusBarView = null;
     private boolean mNowMode;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mContext = this;
-        ButterKnife.bind(this);
-        System.out.println("ádfadsfasdf");
+        unbinder = ButterKnife.bind(this);
+        initToolBar();
+        initDatas();
+        configViews();
     }
-//
-//    protected void transparent19and20() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-//                && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        }
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    private void toolbarSetElevation(float elevation) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            mCommonToolbar.setElevation(elevation);
-//        }
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
+
+    protected void transparent19and20() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void toolbarSetElevation(float elevation) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mCommonToolbar.setElevation(elevation);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 //        if (SharedPreferencesUtil.getInstance().getBoolean(Constant.ISNIGHT, false) != mNowMode) {
 //            if (SharedPreferencesUtil.getInstance().getBoolean(Constant.ISNIGHT, false)) {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -75,53 +79,50 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            }
 //            recreate();
 //        }
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        ButterKnife.unbind(this);
-//        dismissDialog();
-//    }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 //
     public abstract int getLayoutId();
+
+    public abstract void initToolBar();
+
+    public abstract void initDatas();
+
+    /**
+     *
+     */
+    public abstract void configViews();
 //
-//    protected abstract void setupActivityComponent(AppComponent appComponent);
-//
-//    public abstract void initToolBar();
-//
-//    public abstract void initDatas();
-//
-//    /**
-//     * 对各种控件进行设置、适配、填充数据
-//     */
-//    public abstract void configViews();
-//
-//    protected void gone(final View... views) {
-//        if (views != null && views.length > 0) {
-//            for (View view : views) {
-//                if (view != null) {
-//                    view.setVisibility(View.GONE);
-//                }
-//            }
-//        }
-//    }
-//
-//    protected void visible(final View... views) {
-//        if (views != null && views.length > 0) {
-//            for (View view : views) {
-//                if (view != null) {
-//                    view.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        }
-//
-//    }
-//
-//    protected boolean isVisible(View view) {
-//        return view.getVisibility() == View.VISIBLE;
-//    }
-//
+    protected void gone(final View... views) {
+        if (views != null && views.length > 0) {
+            for (View view : views) {
+                if (view != null) {
+                    view.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    protected void visible(final View... views) {
+        if (views != null && views.length > 0) {
+            for (View view : views) {
+                if (view != null) {
+                    view.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
+    }
+
+    protected boolean isVisible(View view) {
+        return view.getVisibility() == View.VISIBLE;
+    }
+
 //    // dialog
 //    public CustomDialog getDialog() {
 //        if (dialog == null) {
@@ -155,23 +156,47 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
-//
-//    protected void hideStatusBar() {
-//        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-//        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-//        getWindow().setAttributes(attrs);
-//        if(statusBarView != null){
-//            statusBarView.setBackgroundColor(Color.TRANSPARENT);
-//        }
-//    }
-//
-//    protected void showStatusBar() {
-//        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-//        attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
-//        getWindow().setAttributes(attrs);
-//        if(statusBarView != null){
-//            statusBarView.setBackgroundColor(statusBarColor);
-//        }
-//    }
+
+    protected void hideStatusBar() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+        if(statusBarView != null){
+            statusBarView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    protected void showStatusBar() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+        if(statusBarView != null){
+            statusBarView.setBackgroundColor(statusBarColor);
+        }
+    }
+
+    // This snippet hides the system bars.
+    protected void hideSystemUI() {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    // This snippet shows the system bars. It does this by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    protected void showSystemUI() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
 
 }
