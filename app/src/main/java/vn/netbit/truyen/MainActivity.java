@@ -8,12 +8,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
+import butterknife.OnTouch;
 import vn.netbit.utils.EbookTextView;
 import vn.netbit.utils.JustifyTextView;
 import vn.netbit.utils.Utils;
@@ -23,8 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rlReadAaSet)
     LinearLayout rlReadAaSet;
-    private EbookTextView tv;
-    private EbookTextView tv2;
+    @BindView(R.id.seekbarFontSize)
+    SeekBar seekbarFontSize;
+
+    @BindView(R.id.contentScrollView)
+    ScrollView contentScrollView;
+
+    @BindView(R.id.llBookReadBottom)
+    LinearLayout llBookReadBottom;
+    @BindView(R.id.chapContent)
+    EbookTextView tv;
+    @BindView(R.id.chapContent2)
+    EbookTextView tv2;
     private Button bt;
     LinearLayout settings;
 
@@ -33,8 +50,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        tv = (EbookTextView) findViewById(R.id.chapContent);
-        tv2 = (EbookTextView) findViewById(R.id.chapContent2);
+        seekbarFontSize.setProgress(30);
+        seekbarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tv.setTextSize(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 //        settings = (LinearLayout) View.in(R.id.rlReadAaSet);
         loadChap();
 
@@ -90,12 +122,64 @@ public class MainActivity extends AppCompatActivity {
         tv2.setTextColor(Color.BLACK);
         tv2.setTextSize(20);
     }
+    int actiondownX = 0;
+    int actiondownY = 0;
+    boolean center = false;
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent e) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_DOWN:
 
-    public void increase(View v){
+                int dx = (int) e.getX();
+                int dy = (int) e.getY();
+                actiondownX = dx;
+                actiondownY = dy;
+
+
+                if (actiondownX >= width / 3 && actiondownX <= width * 2 / 3
+                        && actiondownY >= height / 3 && actiondownY <= height * 2 / 3) {
+                    center = true;
+                } else {
+                    center = false;
+                }
+            case MotionEvent.ACTION_MOVE:
+                return super.dispatchTouchEvent(e);
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+
+                long t = System.currentTimeMillis();
+                int ux = (int) e.getX();
+                int uy = (int) e.getY();
+
+                if (center) {
+                    if (Math.abs(ux - actiondownX) < 5 && Math.abs(uy - actiondownY) < 5) {
+                        changer();
+                    }
+                    break;
+                }
+        }
+        boolean ret = super.dispatchTouchEvent(e);
+        return ret;
+    }
+    public void changer(){
 //        float curSize = tv.getTextSize()  + 1;
 //        tv.setTextSize(pixelsToSp(this, curSize));
        // gone(rlReadAaSet);
 //        settings.setVisibility(View.VISIBLE);
+        if(Utils.isVisible(llBookReadBottom)){
+            gone(llBookReadBottom);
+        } else {
+            visible(llBookReadBottom);
+        }
+    }
+
+
+    @OnClick(R.id.tvBookReadSettings)
+    protected void readSettings(){
         if(Utils.isVisible(rlReadAaSet)){
             gone(rlReadAaSet);
         } else {

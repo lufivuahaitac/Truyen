@@ -7,18 +7,14 @@
     android:layout_height="match_parent"
     tools:context="vn.netbit.truyen.MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="increase"
-        android:text="Button" />
-
     <ScrollView
+        android:id="@+id/contentScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarSize="0pt"
-        android:scrollbarStyle="outsideInset">
+        android:scrollbarStyle="outsideInset"
+        android:keepScreenOn="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/reader_menu_bg_color"
+        android:background="@color/light_white"
         android:clickable="true"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -62,8 +58,8 @@
             android:drawableTop="@drawable/ic_menu_mode_night_normal"
             android:gravity="center"
             android:text="ReadMode"
-            android:textColor="@color/book_read_bottom_text"
-            android:textSize="20sp" />
+            android:textColor="@color/light_black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvBookReadSettings"
@@ -73,8 +69,8 @@
             android:drawableTop="@drawable/ic_menu_settings_normal"
             android:gravity="center"
             android:text="Settings"
-            android:textColor="@color/book_read_bottom_text"
-            android:textSize="20sp" />
+            android:textColor="@color/light_black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvBookReadDownload"
@@ -84,8 +80,8 @@
             android:drawableTop="@drawable/ic_reader_ab_download"
             android:gravity="center"
             android:text="Download"
-            android:textColor="@color/book_read_bottom_text"
-            android:textSize="20sp" />
+            android:textColor="@color/light_black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvBookMark"
@@ -95,8 +91,8 @@
             android:drawableTop="@drawable/ic_menu_bookmark"
             android:gravity="center"
             android:text="Mark"
-            android:textColor="@color/book_read_bottom_text"
-            android:textSize="20sp" />
+            android:textColor="@color/light_black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvBookReadToc"
@@ -106,8 +102,8 @@
             android:drawableTop="@drawable/ic_menu_toc_normal"
             android:gravity="center"
             android:text="Toc"
-            android:textColor="@color/book_read_bottom_text"
-            android:textSize="20sp" />
+            android:textColor="@color/light_black"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
