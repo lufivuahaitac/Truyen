@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activity_read"
-    tools:context="vn.netbit.truyen.Read">
+    tools:context="vn.netbit.truyen.Backup">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +24,16 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <vn.netbit.utils.EbookTextView
+                    android:id="@+id/chapContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
+                <vn.netbit.utils.EbookTextView
+                    android:id="@+id/chapContent2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15px" />
             </LinearLayout>
 
         </ScrollView>
@@ -35,10 +44,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/topSettingPannel"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/llReadTopSetting"
+            android:id="@+id/llBookReadBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -107,4 +115,7 @@
         </LinearLayout>
         <include layout="@layout/activity_read_settings" />
     </LinearLayout>
-</FrameLayout>
+
+
+
+</FrameLayout >

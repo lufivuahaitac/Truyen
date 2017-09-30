@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,9 +39,9 @@ public class Read extends BaseActivity implements View.OnTouchListener {
 
     @BindView(R.id.llReadTopSetting)
     LinearLayout llReadTopSetting;
-    @BindView(R.id.chapContent)
+//    @BindView(R.id.chapContent)
     EbookTextView chapContent;
-    @BindView(R.id.chapContent2)
+//    @BindView(R.id.chapContent2)
     EbookTextView chapContent2;
 
     @Override
@@ -137,6 +138,7 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) rlReadAaSet.getLayoutParams();
         params2.leftMargin = ScreenUtils.getScreenWidth(this) * 2/4;
         rlReadAaSet.setLayoutParams(params2);
+
     }
 
     @Override
