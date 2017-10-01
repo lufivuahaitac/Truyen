@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/touch_bg">
+
+    <ImageView
+        android:id="@+id/itemCover"
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/cover_default"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/itemCover"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxEms="15"
+            android:maxLines="1"
+            android:textColor="@color/common_h1"
+            android:textSize="16sp"
+            tools:text="Truyện: "/>
+
+        <TextView
+            android:id="@+id/itemLatelyUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitle"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/common_h2"
+            tools:text="Chương: "/>
+
+        <TextView
+            android:id="@+id/itemShortDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemLatelyUpdate"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/itemLatelyUpdate"
+            android:ellipsize="end"
+            android:maxEms="14"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:textColor="@color/common_h2"
+            tools:text=""/>
+    </RelativeLayout>
+
+</RelativeLayout>
