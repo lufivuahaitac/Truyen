@@ -7,10 +7,21 @@ import android.graphics.Bitmap;
  */
 
 public class ItemCategory {
+
+    private String id;
     private String cover;
     private String title;
     private String latelyUpdate;
-    private String shortDetail;
+    private String author;
+    private String readed;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCover() {
         return cover;
@@ -36,11 +47,19 @@ public class ItemCategory {
         this.latelyUpdate = latelyUpdate;
     }
 
-    public String getShortDetail() {
-        return shortDetail;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setShortDetail(String shortDetail) {
-        this.shortDetail = shortDetail;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getReaded() {
+        return readed;
+    }
+
+    public void setReaded(String readed) {
+        this.readed = readed;
     }
 }

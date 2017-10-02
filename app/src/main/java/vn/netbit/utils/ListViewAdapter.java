@@ -1,14 +1,15 @@
 package vn.netbit.utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,12 +25,23 @@ public class ListViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<ItemCategory> mCategoryItem;
+//    private Picasso.Builder builder;
+
 
     //Constructor
 
     public ListViewAdapter(Context mContext, List<ItemCategory> mCategoryItem) {
         this.mContext = mContext;
         this.mCategoryItem = mCategoryItem;
+//        builder = new Picasso.Builder(this.mContext);
+//        builder.listener(new Picasso.Listener()
+//        {
+//            @Override
+//            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception)
+//            {
+//                exception.printStackTrace();
+//            }
+//        });
     }
 
 
@@ -56,16 +68,21 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View v = View.inflate(mContext, R.layout.item_category, null);
         ImageView cover = (ImageView) v.findViewById(R.id.itemCover);
         TextView title = (TextView) v.findViewById(R.id.itemTitle);
         TextView latelyUpdate = (TextView) v.findViewById(R.id.itemLatelyUpdate);
-        TextView shortDetail = (TextView) v.findViewById(R.id.itemShortDetail);
+        TextView author = (TextView) v.findViewById(R.id.itemAuthor);
 
-        Glide.with(mContext).load(mCategoryItem.get(position).getCover()).into(cover);
+        Picasso.with(mContext)
+                .load(mCategoryItem.get(position).getCover())
+                .placeholder(R.drawable.cover_default)
+                .error(R.drawable.cover_default)
+                .into(cover);
         title.setText(mCategoryItem.get(position).getTitle());
-        latelyUpdate.append(mCategoryItem.get(position).getLatelyUpdate());
-        shortDetail.append(mCategoryItem.get(position).getShortDetail());
+        latelyUpdate.setText(mCategoryItem.get(position).getLatelyUpdate());
+        author.setText(mCategoryItem.get(position).getAuthor());
         //Save product id to tag
         v.setTag(mCategoryItem.get(position).getLatelyUpdate());
 
