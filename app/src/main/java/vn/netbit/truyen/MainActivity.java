@@ -1,5 +1,6 @@
 package vn.netbit.truyen;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import vn.netbit.utils.SectionsPageAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
         tabs.getTabAt(0).setIcon(tabIcons[0]);
         tabs.getTabAt(1).setIcon(tabIcons[1]);
 
-        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabs.getTabAt(tabs.getSelectedTabPosition()).getIcon().setColorFilter(Color.CYAN, PorterDuff.Mode.SRC_IN);
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
 
             }
 
@@ -84,5 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

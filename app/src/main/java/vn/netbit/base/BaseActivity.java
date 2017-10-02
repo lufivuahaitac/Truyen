@@ -25,11 +25,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import vn.netbit.truyen.R;
 import vn.netbit.utils.SharedPreferencesUtil;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -43,12 +45,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean mNowMode;
     private Unbinder unbinder;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mContext = this;
         unbinder = ButterKnife.bind(this);
+        this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.light_blue));
+        this.getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.light_blue));
+        showSystemUI();
         initToolBar();
         initDatas();
         configViews();
@@ -123,57 +129,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return view.getVisibility() == View.VISIBLE;
     }
 
-//    // dialog
-//    public CustomDialog getDialog() {
-//        if (dialog == null) {
-//            dialog = CustomDialog.instance(this);
-//            dialog.setCancelable(true);
-//        }
-//        return dialog;
-//    }
-//
-//    public void hideDialog() {
-//        if (dialog != null)
-//            dialog.hide();
-//    }
-//
-//    public void showDialog() {
-//        getDialog().show();
-//    }
-//
-//    public void dismissDialog() {
-//        if (dialog != null) {
-//            dialog.dismiss();
-//            dialog = null;
-//        }
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            finish();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
-    protected void hideStatusBar() {
-        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        getWindow().setAttributes(attrs);
-        if(statusBarView != null){
-            statusBarView.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    protected void showStatusBar() {
-        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        getWindow().setAttributes(attrs);
-        if(statusBarView != null){
-            statusBarView.setBackgroundColor(statusBarColor);
-        }
-    }
 
     // This snippet hides the system bars.
     protected void hideSystemUI() {
@@ -187,6 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        //showStatusBar();
     }
 
     // This snippet shows the system bars. It does this by removing all the flags
@@ -195,7 +152,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        //hideStatusBar();
     }
 
 

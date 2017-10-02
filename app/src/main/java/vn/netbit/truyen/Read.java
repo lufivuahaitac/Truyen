@@ -15,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,10 +43,11 @@ public class Read extends BaseActivity implements View.OnTouchListener {
 
     @BindView(R.id.llReadTopSetting)
     LinearLayout llReadTopSetting;
-//    @BindView(R.id.chapContent)
-    EbookTextView chapContent;
-//    @BindView(R.id.chapContent2)
-    EbookTextView chapContent2;
+
+    @BindView(R.id.content)
+    LinearLayout content;
+
+    private List<EbookTextView> textViewList = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -52,17 +57,25 @@ public class Read extends BaseActivity implements View.OnTouchListener {
 
     @Override
     public void initToolBar() {
+        showSystemUI();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         hideSystemUI();
         //main_content.getHeight();
         contentScrollView.setOnTouchListener(this);
         rlReadAaSet.setOnTouchListener(this);
         llReadTopSetting.setOnTouchListener(this);
 
-        seekbarFontSize.setProgress(30);
+        seekbarFontSize.setProgress(14);
         seekbarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                chapContent.setTextSize(progress);
+            public void onProgressChanged(SeekBar seekBar, final int progress, boolean fromUser) {
+               for(TextView tv:textViewList){
+                    tv.setTextSize(progress);
+                };
             }
 
             @Override
@@ -116,17 +129,13 @@ public class Read extends BaseActivity implements View.OnTouchListener {
                 "Bản thân hắn quá ngu muội không nhận ra. Nếu như biết sớm thì cũng không khốn nạn như vậy. Mẫu thân mất, sau khi hắn tự mình chưởng quản chi nhánh đã nhục mạ phụ thân khiến hắn không dám về nhà!";
 
         //.setMovementMethod(new ScrollingMovementMethod());
-        chapContent.setText(s);
-        chapContent.setTextColor(Color.BLACK);
-        chapContent.setTextSize(15);
-        //tv.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Bookerly-Regular.ttf"));
-        chapContent.setTypeface(Typeface.SERIF);
-        chapContent.setLineSpacing(10,1);
-        //tv.get(20);
-        //chapContent = s;
-        chapContent2.setText(s);
-        chapContent2.setTextColor(Color.BLACK);
-        chapContent2.setTextSize(20);
+        EbookTextView textView = new EbookTextView(this);
+        textViewList.add(textView);
+        textView.setText(s);
+        textView.setTextSize(seekbarFontSize.getProgress());
+        textView.setTextColor(Color.BLACK);
+        content.addView(textView);
+
     }
 
     @Override
@@ -136,7 +145,7 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         topSettingPannel.setLayoutParams(params);
 
         LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) rlReadAaSet.getLayoutParams();
-        params2.leftMargin = ScreenUtils.getScreenWidth(this) * 2/4;
+        params2.leftMargin = ScreenUtils.getScreenWidth(this) * 1/4;
         rlReadAaSet.setLayoutParams(params2);
 
     }
@@ -146,7 +155,7 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         super.onWindowFocusChanged(hasFocus);
 
         if(hasFocus) {
-            hideSystemUI();
+            //hideSystemUI();
         } else {
             if(isVisible(llReadTopSetting)){
                 gone(llReadTopSetting);
@@ -169,48 +178,6 @@ public class Read extends BaseActivity implements View.OnTouchListener {
     int actiondownX = 0;
     int actiondownY = 0;
     boolean center = false;
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent e) {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int height = displayMetrics.heightPixels;
-//        int width = displayMetrics.widthPixels;
-//
-//
-//        switch (e.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//
-//                int dx = (int) e.getX();
-//                int dy = (int) e.getY();
-//                actiondownX = dx;
-//                actiondownY = dy;
-//
-//
-////                if (actiondownX >= width / 4 && actiondownX <= width * 3/4
-////                        && actiondownY >= height / 4 && actiondownY <= height * 3 / 4) {
-////                    center = true;
-////                } else {
-////                    center = false;
-////                }
-//            case MotionEvent.ACTION_MOVE:
-//                return super.dispatchTouchEvent(e);
-//            case MotionEvent.ACTION_UP:
-//            case MotionEvent.ACTION_CANCEL:
-//
-//                long t = System.currentTimeMillis();
-//                int ux = (int) e.getX();
-//                int uy = (int) e.getY();
-//
-//                if ( !isIn(ux, uy, rlReadAaSet) && !isIn(ux, uy, llReadTopSetting)) {
-//                    if (Math.abs(ux - actiondownX) < 10 && Math.abs(uy - actiondownY) < 10) {
-//                        toggleSettings();
-//                    }
-//                    break;
-//                }
-//        }
-//        boolean ret = super.dispatchTouchEvent(e);
-//        return ret;
-//    }
 
     public void toggleSettings(){
 
