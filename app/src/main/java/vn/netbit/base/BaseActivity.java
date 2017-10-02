@@ -52,8 +52,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         mContext = this;
         unbinder = ButterKnife.bind(this);
-        this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.light_blue));
-        this.getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.light_blue));
+        this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dank_blue));
+        this.getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.dank_blue));
         showSystemUI();
         initToolBar();
         initDatas();
@@ -142,7 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         //showStatusBar();
     }
 
@@ -151,9 +151,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void showSystemUI() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+//                        | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         //hideStatusBar();
     }
 

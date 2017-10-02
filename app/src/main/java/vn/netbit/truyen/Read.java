@@ -9,12 +9,14 @@ import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,8 +37,11 @@ public class Read extends BaseActivity implements View.OnTouchListener {
     LinearLayout rlReadAaSet;
     @BindView(R.id.main_content)
     LinearLayout main_content;
-    @BindView(R.id.seekbarFontSize)
-    SeekBar seekbarFontSize;
+    @BindView(R.id.btnFontsizeMinus)
+    Button btnFontsizeMinus;
+
+    @BindView(R.id.btnFontsizePlus)
+    Button btnFontsizePlus;
 
     @BindView(R.id.contentScrollView)
     ScrollView contentScrollView;
@@ -46,6 +51,11 @@ public class Read extends BaseActivity implements View.OnTouchListener {
 
     @BindView(R.id.content)
     LinearLayout content;
+
+    @BindView(R.id.fontType)
+    Spinner fontType;
+
+    private int fontSize = 16;
 
     private List<EbookTextView> textViewList = new ArrayList<>();
 
@@ -69,25 +79,6 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         rlReadAaSet.setOnTouchListener(this);
         llReadTopSetting.setOnTouchListener(this);
 
-        seekbarFontSize.setProgress(14);
-        seekbarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, final int progress, boolean fromUser) {
-               for(TextView tv:textViewList){
-                    tv.setTextSize(progress);
-                };
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     @Override
@@ -132,8 +123,9 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         EbookTextView textView = new EbookTextView(this);
         textViewList.add(textView);
         textView.setText(s);
-        textView.setTextSize(seekbarFontSize.getProgress());
+        textView.setTextSize(fontSize);
         textView.setTextColor(Color.BLACK);
+        textView.setTypeface(Typeface.SERIF);
         content.addView(textView);
 
     }
@@ -148,6 +140,12 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         params2.leftMargin = ScreenUtils.getScreenWidth(this) * 1/4;
         rlReadAaSet.setLayoutParams(params2);
 
+        String[] items = new String[]{"1", "2", "three"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_read_settings, items);
+//set the spinners adapter to the previously created one.
+        fontType.setAdapter(adapter);
     }
 
     @Override
@@ -155,7 +153,7 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         super.onWindowFocusChanged(hasFocus);
 
         if(hasFocus) {
-            //hideSystemUI();
+            hideSystemUI();
         } else {
             if(isVisible(llReadTopSetting)){
                 gone(llReadTopSetting);
@@ -171,6 +169,24 @@ public class Read extends BaseActivity implements View.OnTouchListener {
             gone(rlReadAaSet);
         } else {
             visible(rlReadAaSet);
+        }
+    }
+
+    @OnClick(R.id.btnFontsizePlus)
+    protected void plusFont(){
+        fontSize += 1;
+        setFontSize(fontSize);
+    }
+
+    @OnClick(R.id.btnFontsizeMinus)
+    protected void minusFont(){
+        fontSize -= 1;
+        setFontSize(fontSize);
+    }
+
+    private void setFontSize(int size){
+        for(EbookTextView tv:textViewList){
+            tv.setTextSize(size);
         }
     }
 

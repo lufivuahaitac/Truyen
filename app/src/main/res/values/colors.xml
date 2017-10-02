@@ -21,7 +21,8 @@
     <color name="light_coffee">#A58D5E</color>
     <color name="light_gray">#AAAAAA</color>
     <color name="light_red">#EC4A48</color>
-    <color name="light_blue">#039be5</color>
+    <color name="light_blue">#eb039be5</color>
+    <color name="dank_blue">#eb0395de</color>
     <color name="dark_red">#B93221</color>
     <color name="common_bg">@color/white</color>
     <color name="common_touch_bg">#E3E3E3</color>
