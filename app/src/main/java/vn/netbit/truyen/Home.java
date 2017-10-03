@@ -86,7 +86,7 @@ public class Home extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent intent = new Intent(mContext, Read.class);
+                Intent intent = new Intent(mContext, DetailActivity.class);
 
                 startActivity(intent);
             }
