@@ -3,6 +3,7 @@ package vn.netbit.truyen;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import vn.netbit.utils.FontUtils;
 import vn.netbit.utils.SectionsPageAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dank_blue));
         this.getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.dank_blue));
+        FontUtils.getInstance().setBookerly(Typeface.createFromAsset(getAssets(), "fonts/Bookerly-Regular.ttf"));
+        FontUtils.getInstance().setLiterata(Typeface.createFromAsset(getAssets(), "fonts/literata-regular.otf"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
         tabs.getTabAt(0).setIcon(tabIcons[0]);
         tabs.getTabAt(1).setIcon(tabIcons[1]);
 
-        tabs.getTabAt(tabs.getSelectedTabPosition()).getIcon().setColorFilter(Color.CYAN, PorterDuff.Mode.SRC_IN);
+        tabs.getTabAt(tabs.getSelectedTabPosition()).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
             }
 

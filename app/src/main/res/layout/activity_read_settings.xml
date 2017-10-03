@@ -16,66 +16,105 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlReadAaSet"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="wrap_content"
     android:layout_above="@+id/llBookReadBottom"
-    android:background="@color/light_blue"
-    android:clickable="true"
+    android:background="@color/dank_blue"
+    android:paddingBottom="10dp"
     android:orientation="vertical"
     android:visibility="gone">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:weightSum="2">
 
-        <Button
+        <TextView
+            android:layout_weight="1"
             android:id="@+id/btnFontsizeMinus"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:padding="5dp"
-            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="Aa-"
             android:textColor="@color/common_h2"
-            android:textSize="14dp" />
-
-        <Button
+            android:textSize="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <View android:background="#ffffff"
+            android:layout_width = "1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_weight="1"
             android:id="@+id/btnFontsizePlus"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:padding="5dp"
-            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="Aa+"
             android:textColor="@color/common_h2"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
     </LinearLayout>
-
-
+    <View android:background="#ffffff"
+        android:layout_width = "match_parent"
+        android:layout_height="1dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-        <Spinner
-            android:id="@+id/fontType"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/bookerly"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/common_h2"
+            android:textAlignment="center"
+            android:text="Bookerly"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <View android:background="#ffffff"
+            android:layout_width = "1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/literata"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_h2"
+            android:textAlignment="center"
+            android:text="Literata"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <View android:background="#ffffff"
+            android:layout_width = "1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/serif"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_h2"
+            android:textAlignment="center"
+            android:text="Serif"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <View android:background="#ffffff"
+            android:layout_width = "1dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/sansserif"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_h2"
+            android:textAlignment="center"
+            android:text="Sans Serif"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/gvTheme"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:listSelector="@android:color/transparent"
-        android:numColumns="6"
-        android:scrollbars="none" />
 </LinearLayout>

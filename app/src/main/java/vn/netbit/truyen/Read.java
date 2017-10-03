@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import vn.netbit.base.BaseActivity;
 import vn.netbit.utils.EbookTextView;
+import vn.netbit.utils.FontUtils;
 import vn.netbit.utils.ScreenUtils;
 import vn.netbit.utils.Utils;
 
@@ -37,11 +38,20 @@ public class Read extends BaseActivity implements View.OnTouchListener {
     LinearLayout rlReadAaSet;
     @BindView(R.id.main_content)
     LinearLayout main_content;
-    @BindView(R.id.btnFontsizeMinus)
-    Button btnFontsizeMinus;
 
+    @BindView(R.id.btnFontsizeMinus)
+    TextView btnFontsizeMinus;
     @BindView(R.id.btnFontsizePlus)
-    Button btnFontsizePlus;
+    TextView btnFontsizePlus;
+
+    @BindView(R.id.bookerly)
+    TextView bookerlyFont;
+    @BindView(R.id.literata)
+    TextView literataFont;
+    @BindView(R.id.serif)
+    TextView serifFont;
+    @BindView(R.id.sansserif)
+    TextView sansserifFont;
 
     @BindView(R.id.contentScrollView)
     ScrollView contentScrollView;
@@ -52,8 +62,6 @@ public class Read extends BaseActivity implements View.OnTouchListener {
     @BindView(R.id.content)
     LinearLayout content;
 
-    @BindView(R.id.fontType)
-    Spinner fontType;
 
     private int fontSize = 16;
 
@@ -136,16 +144,11 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         params.topMargin = ScreenUtils.getStatusBarHeight(this) - 2;
         topSettingPannel.setLayoutParams(params);
 
-        LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) rlReadAaSet.getLayoutParams();
-        params2.leftMargin = ScreenUtils.getScreenWidth(this) * 1/4;
-        rlReadAaSet.setLayoutParams(params2);
+//        LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) rlReadAaSet.getLayoutParams();
+//        params2.leftMargin = ScreenUtils.getScreenWidth(this) * 1/4;
+//        rlReadAaSet.setLayoutParams(params2);
 
-        String[] items = new String[]{"1", "2", "three"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_read_settings, items);
-//set the spinners adapter to the previously created one.
-        fontType.setAdapter(adapter);
+
     }
 
     @Override
@@ -190,6 +193,32 @@ public class Read extends BaseActivity implements View.OnTouchListener {
         }
     }
 
+    @OnClick(R.id.bookerly)
+    protected void setBookerly(){
+        setFontType(FontUtils.getInstance().getBookerly());
+    }
+
+    @OnClick(R.id.literata)
+    protected void setLiterata(){
+        setFontType(FontUtils.getInstance().getLiterata());
+    }
+
+    @OnClick(R.id.serif)
+    protected void setSerif(){
+        setFontType(Typeface.SERIF);
+    }
+
+    @OnClick(R.id.sansserif)
+    protected void setSansserif(){
+        setFontType(Typeface.SANS_SERIF);
+    }
+
+    private void setFontType(Typeface font){
+        for(EbookTextView tv:textViewList){
+            tv.setTypeface(font);
+        }
+    }
+
 
     int actiondownX = 0;
     int actiondownY = 0;
@@ -229,11 +258,15 @@ public class Read extends BaseActivity implements View.OnTouchListener {
                         int ux = (int) e.getX();
                         int uy = (int) e.getY();
 
-                        if (Math.abs(ux - actiondownX) < 10 && Math.abs(uy - actiondownY) < 10) {
+                        if (Math.abs(ux - actiondownX) < 5 && Math.abs(uy - actiondownY) < 5) {
                             toggleSettings();
                         }
                         break;
                 }
+            case R.id.llReadTopSetting:
+                return super.onTouchEvent(e);
+            case R.id.rlReadAaSet:
+                return super.onTouchEvent(e);
             default:
                 break;
 

@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/light_blue"
+            android:background="@color/dank_blue"
             android:clickable="true"
             android:orientation="horizontal"
             android:padding="10dp"
@@ -59,7 +59,7 @@
                 android:drawableTop="@drawable/ic_menu_mode_night_normal"
                 android:gravity="center"
                 android:text="ReadMode"
-                android:textColor="@color/light_black"
+                android:textColor="@color/light_white"
                 android:textSize="12sp" />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:drawableTop="@drawable/ic_menu_settings_normal"
                 android:gravity="center"
                 android:text="Settings"
-                android:textColor="@color/light_black"
+                android:textColor="@color/light_white"
                 android:textSize="12sp" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:drawableTop="@drawable/ic_reader_ab_download"
                 android:gravity="center"
                 android:text="Download"
-                android:textColor="@color/light_black"
+                android:textColor="@color/light_white"
                 android:textSize="12sp" />
 
             <TextView
@@ -92,7 +92,7 @@
                 android:drawableTop="@drawable/ic_menu_bookmark"
                 android:gravity="center"
                 android:text="Mark"
-                android:textColor="@color/light_black"
+                android:textColor="@color/light_white"
                 android:textSize="12sp" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:drawableTop="@drawable/ic_menu_toc_normal"
                 android:gravity="center"
                 android:text="Toc"
-                android:textColor="@color/light_black"
+                android:textColor="@color/light_white"
                 android:textSize="12sp" />
 
         </LinearLayout>

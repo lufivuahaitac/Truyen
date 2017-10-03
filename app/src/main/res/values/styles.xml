@@ -3,23 +3,29 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryDark">@color/light_blue</item>
-        <item name="colorAccent">@color/light_blue</item>
+        <item name="colorPrimary">@color/dank_blue</item>
+        <item name="colorPrimaryDark">@color/dank_blue</item>
+        <item name="colorAccent">@color/dank_blue</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-        <item name="android:background">@color/light_blue</item>
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryDark">@color/light_blue</item>
-        <item name="colorAccent">@color/light_blue</item>
+        <item name="android:background">@color/dank_blue</item>
+        <item name="colorPrimary">@color/dank_blue</item>
+        <item name="colorPrimaryDark">@color/dank_blue</item>
+        <item name="colorAccent">@color/dank_blue</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
-        <item name="android:background">@color/light_blue</item>
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryDark">@color/light_blue</item>
-        <item name="colorAccent">@color/light_blue</item>
+        <item name="android:background">@color/dank_blue</item>
+        <item name="colorPrimary">@color/dank_blue</item>
+        <item name="colorPrimaryDark">@color/dank_blue</item>
+        <item name="colorAccent">@color/dank_blue</item>
     </style>
 
+    <style name="Settings">
+        <item name="android:background">#000</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+    </style>
 </resources>
