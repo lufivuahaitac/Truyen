@@ -1,6 +1,7 @@
 package vn.netbit.truyen;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.ColorUtils;
@@ -46,7 +47,8 @@ public class DetailActivity extends AppCompatActivity {
                 "Nguồn:Goctruyen.com\n" +
                 "Tình trạng:Hoàn Thành");
         detailInfo.setTextColor(Color.argb(255,77,77,77));
-        detailInfo.setLineSpacing(10,10);
+        detailInfo.setLineSpacing(0,1.3f);
+        detailSummary.setTypeface(Typeface.SANS_SERIF);
         detailSummary.setText("Giang hồ vô đạo, bạt đao tương trợ, đao xuất ngang trời, không thẹn với lương tâm.\n" +
                 "\n" +
                 "Chúng sinh vô đạo, đao phong thí. Lãnh nhãn tinh không, trì đao bễ nghễ.\n" +
