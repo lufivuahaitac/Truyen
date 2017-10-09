@@ -33,11 +33,16 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"/>
 
+                <View android:background="#9c9c9c"
+                    android:layout_width = "match_parent"
+                    android:layout_height="1dp"/>
+
                 <TextView
                     android:id="@+id/detailInfo"
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:paddingBottom="15dp"/>
             </LinearLayout>
             <View android:background="#545454"

@@ -52,4 +52,6 @@
     <color name="gender_select_female_normal">#EEA9B8</color>
     <color name="gender_select_female_pressed">#EEA2AD</color>
 
+    <color name="detail_info">#ffa946</color>
+
 </resources>

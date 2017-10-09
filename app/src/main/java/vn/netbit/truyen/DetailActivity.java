@@ -1,7 +1,9 @@
 package vn.netbit.truyen;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
                 "Thể loại:Truyện Tiên Hiệp\n" +
                 "Nguồn:Goctruyen.com\n" +
                 "Tình trạng:Hoàn Thành");
+        detailInfo.setTextColor(Color.argb(255,77,77,77));
+        detailInfo.setLineSpacing(10,10);
         detailSummary.setText("Giang hồ vô đạo, bạt đao tương trợ, đao xuất ngang trời, không thẹn với lương tâm.\n" +
                 "\n" +
                 "Chúng sinh vô đạo, đao phong thí. Lãnh nhãn tinh không, trì đao bễ nghễ.\n" +
